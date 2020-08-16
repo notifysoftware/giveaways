@@ -19,6 +19,10 @@ export class Giveaway {
     private readonly client: Client
   ) {}
 
+  private static chooseRandom<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
   private async fetchMessage(): Promise<Message | null> {
     const channel = (await this.client.channels.fetch(
       this.config.message.channel
@@ -48,5 +52,12 @@ export class Giveaway {
     }
 
     const users = reaction.users.cache.array();
+    const winner = Giveaway.chooseRandom(users);
+
+    try {
+      await winner.send("Winner");
+    } catch (e) {
+      return;
+    }
   }
 }
