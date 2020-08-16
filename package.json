@@ -1,0 +1,20 @@
+{
+  "name": "@notify/giveaways",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/notifysoftware/giveaways",
+  "author": "Alistair Smith <alistairsmith01@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.7.0",
+    "prettier": "^2.0.5",
+    "ts-node-dev": "^1.0.0-pre.57",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0"
+  }
+}
