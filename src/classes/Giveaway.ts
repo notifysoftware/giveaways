@@ -39,8 +39,14 @@ export class Giveaway {
       return;
     }
 
-    const reactions = await message.reactions.cache
+    const reaction = await message.reactions.cache
       .array()
       .find((reaction) => reaction.emoji.name === this.config.emoji);
+
+    if (!reaction) {
+      return;
+    }
+
+    const users = reaction.users.cache.array();
   }
 }
