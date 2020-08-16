@@ -3,14 +3,14 @@ import { Client, Emoji, Message, Snowflake, TextChannel } from "discord.js";
 
 export interface GiveawayConstructorOptions {
   prize: string;
-  message: {
-    channel: Snowflake;
-    id: Snowflake;
-  };
   ends: moment.Moment;
   hosted: Snowflake;
   winnerCount: number;
   emoji: Emoji["name"];
+  message: {
+    channel: Snowflake;
+    id: Snowflake;
+  };
 }
 
 export class Giveaway {
@@ -59,5 +59,9 @@ export class Giveaway {
     } catch (e) {
       return;
     }
+  }
+
+  get ended() {
+    return this.config.ends.isAfter(moment());
   }
 }
