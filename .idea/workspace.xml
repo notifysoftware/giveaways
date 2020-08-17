@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fe3d5f5-dca3-4b9c-8065-85e2f529d5a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/handlers/message.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/log.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/log.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +66,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/util" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/docs" />
     </key>
@@ -80,7 +79,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1597618615083</updated>
-      <workItem from="1597618617354" duration="4645000" />
+      <workItem from="1597618617354" duration="4922000" />
+      <workItem from="1597624040642" duration="193000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1597619916979</created>
@@ -119,9 +119,9 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="504" y="247" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597618732934" />
-    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1597622065802">
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1597624014992">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597622065802" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597624014992" />
   </component>
 </project>
