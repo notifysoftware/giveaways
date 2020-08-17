@@ -1,6 +1,10 @@
 import moment from "moment";
+
 import { Client, Emoji, Message, Snowflake, TextChannel } from "discord.js";
+import * as fs from "fs";
+
 import { GenericErrorHandler } from "./GenericErrorHandler";
+import { JsonFS } from "./JsonFS";
 
 export interface GiveawayConstructorOptions {
   prize: string;
@@ -91,5 +95,24 @@ export class Giveaway extends GenericErrorHandler {
    */
   get fromNow() {
     return this.config.ends.fromNow();
+  }
+
+  /**
+   * Finds an already existing giveaway and creates it
+   * @param message The message object
+   * @param client The client
+   */
+  static from(message: Message, client: Client) {
+    const giveaways = JsonFS.read();
+
+    const giveaway = giveaways.find(
+      (giveaway) => giveaway.message.id === message.id
+    );
+
+    if (giveaway) {
+      return new Giveaway(giveaway, client);
+    }
+
+    return null;
   }
 }
