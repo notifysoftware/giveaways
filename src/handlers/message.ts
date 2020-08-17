@@ -17,7 +17,7 @@ const messageHandler = async (
   args: string[]
 ) => {
   switch (command) {
-    case "rolls": {
+    case "rolls":
       message.requires(
         (user) =>
           user.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
@@ -27,7 +27,6 @@ const messageHandler = async (
       );
 
       roll(message, message.client);
-    }
   }
 };
 
