@@ -15,12 +15,9 @@ export class GenericErrorHandler {
   }
 
   async Throw(e: Error) {
-    const user = await this.client.users.fetch(process.env.MANAGER_ID!);
-
-    if (!user) {
-      return;
-    }
-
-    await user.send(GenericErrorHandler.withEmbed(e));
+    try {
+      const user = await this.client.users.fetch(process.env.MANAGER_ID!);
+      await user.send(GenericErrorHandler.withEmbed(e));
+    } catch (_) {}
   }
 }

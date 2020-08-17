@@ -1,6 +1,14 @@
 import moment from "moment";
 
-import { Client, Emoji, Message, Snowflake, TextChannel } from "discord.js";
+import {
+  Client,
+  Emoji,
+  Message,
+  MessageReaction,
+  Snowflake,
+  TextChannel,
+  User,
+} from "discord.js";
 
 import { GenericErrorHandler } from "./GenericErrorHandler";
 import { JsonFS } from "./JsonFS";
@@ -42,12 +50,32 @@ export class Giveaway extends GenericErrorHandler {
     const channel = (await this.client.channels.fetch(
       this.config.message.channel
     )) as TextChannel;
+
     if (!channel) return null;
 
     const message = await channel.messages.fetch(this.config.message.id);
     if (!message) return null;
 
     return message;
+  }
+
+  /**
+   * Fetches all users who have react (thanks @sycer-dev!)
+   * @param reaction
+   * @param after
+   * @private
+   */
+  private async fetchUsers(
+    reaction: MessageReaction,
+    after?: string
+  ): Promise<User[]> {
+    const reactions = await reaction.users.fetch({ limit: 100, after });
+    if (!reactions.size) return [];
+
+    const last = reactions.first()?.id;
+    const next = await this.fetchUsers(reaction, last);
+
+    return [...reactions.array(), ...next];
   }
 
   /**
@@ -62,16 +90,20 @@ export class Giveaway extends GenericErrorHandler {
       return;
     }
 
-    const reaction = await message.reactions.cache
-      .array()
-      .find((reaction) => reaction.emoji.name === this.config.emoji);
+    const reactions = await message
+      .fetch(true)
+      .then((message) => message.reactions.cache.array());
+
+    const reaction = reactions.find(
+      (reaction) => reaction.emoji.name === this.config.emoji
+    );
 
     if (!reaction) {
       await this.Throw(new Error("Could not find reaction"));
       return;
     }
 
-    const users = reaction.users.cache.array();
+    const users = await this.fetchUsers(reaction);
     const winner = Giveaway.chooseRandom(users);
 
     try {
