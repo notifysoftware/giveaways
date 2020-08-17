@@ -1,7 +1,6 @@
 import moment from "moment";
 
 import { Client, Emoji, Message, Snowflake, TextChannel } from "discord.js";
-import * as fs from "fs";
 
 import { GenericErrorHandler } from "./GenericErrorHandler";
 import { JsonFS } from "./JsonFS";
