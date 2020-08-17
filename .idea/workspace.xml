@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fe3d5f5-dca3-4b9c-8065-85e2f529d5a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/classes/JsonFS.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/roll.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Giveaway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Giveaway.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/message.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/message.ts" afterDir="false" />
-    </list>
+    <list default="true" id="5fe3d5f5-dca3-4b9c-8065-85e2f529d5a1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1597618615083</updated>
       <workItem from="1597618617354" duration="4922000" />
-      <workItem from="1597624040642" duration="1433000" />
+      <workItem from="1597624040642" duration="1550000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1597619916979</created>

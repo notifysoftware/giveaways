@@ -21,7 +21,7 @@ export interface GiveawayConstructorOptions {
 export class Giveaway extends GenericErrorHandler {
   constructor(
     public readonly config: GiveawayConstructorOptions,
-    private readonly client: Client
+    client: Client
   ) {
     super(client);
   }
