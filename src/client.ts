@@ -11,4 +11,4 @@ client.on("ready", () => {
   log("Ready");
 });
 
-client.login(process.env.DISCORD_TOKEN).then(log);
+client.login().then(log);
