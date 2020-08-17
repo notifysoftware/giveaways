@@ -20,6 +20,7 @@ Secondly, make a file called `.env` which looks like this:
 
 ```dotenv
 DISCORD_TOKEN=Nz2hIS9is9JSIofd9NMjc0.Ajievej.IJsnHuIJIifnjSNjdEJ29jsnkd3
+MANAGER_ID=268798547439255572 # Discord ID of developer / person running this
 ```
 
 #### Running
