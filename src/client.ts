@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { log as _log } from "../log";
+import { log as _log } from "./log";
 
 const log = _log("Client");
 
