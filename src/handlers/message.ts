@@ -2,6 +2,9 @@ import { GuildMember, Message, Permissions, User } from "discord.js";
 import { prefix } from "../util/config";
 import { roll } from "../commands/roll";
 import { GenericErrorHandler } from "../classes/GenericErrorHandler";
+import { log as _log } from "../util/log";
+
+const log = _log("Giveaway");
 
 class CustomMessage extends Message {
   requires(callback: (author: GuildMember) => boolean) {
@@ -25,7 +28,7 @@ const commandMap: {
 } = {
   roll: (message: CustomMessage, args: string[]) => {
     message.requires(memberToBeAdmin);
-    roll(message, message.client);
+    roll(message, message.client).then(() => log("Rolling", message.id));
   },
   create: (message: CustomMessage, args: string[]) => {
     message.requires(memberToBeAdmin);
@@ -34,26 +37,17 @@ const commandMap: {
 
 const commands = Object.keys(commandMap);
 
-const messageHandler = async (
-  message: CustomMessage,
-  command: string,
-  args: string[]
-) => {
-  if (commands.includes(command)) {
-    commandMap[command](message, args);
-  }
-};
-
 const wrapper = async (message: Message) => {
   if (!message.content.startsWith(prefix)) return;
   if (message.author.bot) return;
 
   const [command, ...args] = message.content.replace(prefix, "").split(" ");
 
+  if (!commands.includes(command)) return;
+
   try {
-    await messageHandler(
+    commandMap[command](
       new CustomMessage(message.client, message, message.channel),
-      command,
       args
     );
   } catch (e) {

@@ -7,7 +7,6 @@ const location = path.join(__dirname, "..", "giveaways.json");
 export class JsonFS {
   static read(): GiveawayConstructorOptions[] {
     const data = fs.readFileSync(location).toString();
-
     return JSON.parse(data);
   }
 

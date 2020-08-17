@@ -133,11 +133,11 @@ export class Giveaway extends GenericErrorHandler {
    * @param message The message object
    * @param client The client
    */
-  static from(message: Message, client: Client) {
+  static from(message: Snowflake, client: Client) {
     const giveaways = JsonFS.read();
 
     const giveaway = giveaways.find(
-      (giveaway) => giveaway.message.id === message.id
+      (giveaway) => giveaway.message.id === message
     );
 
     if (giveaway) {
