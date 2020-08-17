@@ -1,5 +1,6 @@
 import moment from "moment";
 import { Client, Emoji, Message, Snowflake, TextChannel } from "discord.js";
+import { GenericErrorHandler } from "./GenericErrorHandler";
 
 export interface GiveawayConstructorOptions {
   prize: string;
@@ -13,11 +14,13 @@ export interface GiveawayConstructorOptions {
   };
 }
 
-export class Giveaway {
+export class Giveaway extends GenericErrorHandler {
   constructor(
     public readonly config: GiveawayConstructorOptions,
     private readonly client: Client
-  ) {}
+  ) {
+    super(client);
+  }
 
   private static chooseRandom<T>(arr: T[]): T {
     return arr[Math.floor(Math.random() * arr.length)];
