@@ -1,5 +1,7 @@
 import { GuildMember, Message, Permissions, User } from "discord.js";
 import { prefix } from "../util/config";
+import { roll } from "../commands/roll";
+import { GenericErrorHandler } from "../classes/GenericErrorHandler";
 
 class CustomMessage extends Message {
   requires(callback: (author: GuildMember) => boolean) {
@@ -16,9 +18,15 @@ const messageHandler = async (
 ) => {
   switch (command) {
     case "rolls": {
-      message.requires((user) =>
-        user.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+      message.requires(
+        (user) =>
+          user.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
+          user.roles.cache
+            .array()
+            .some((role) => role.name.toLowerCase() === "giveaways")
       );
+
+      roll(message, message.client);
     }
   }
 };
@@ -35,7 +43,9 @@ const wrapper = async (message: Message) => {
       command,
       args
     );
-  } catch (_) {}
+  } catch (e) {
+    await new GenericErrorHandler(message.client).Throw(e);
+  }
 };
 
 export { wrapper as messageHandler };
