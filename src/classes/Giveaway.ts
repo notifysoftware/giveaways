@@ -22,10 +22,19 @@ export class Giveaway extends GenericErrorHandler {
     super(client);
   }
 
+  /**
+   * Finds a winner
+   * @param arr The users
+   * @private
+   */
   private static chooseRandom<T>(arr: T[]): T {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  /**
+   * Fetches the message of the giveaway
+   * @private
+   */
   private async fetchMessage(): Promise<Message | null> {
     const channel = (await this.client.channels.fetch(
       this.config.message.channel
@@ -38,11 +47,15 @@ export class Giveaway extends GenericErrorHandler {
     return message;
   }
 
+  /**
+   * Finds a winner
+   */
   async roll() {
     const message = await this.fetchMessage();
     if (!message) return;
 
     if (message.author.id !== this.client.user?.id) {
+      await this.Throw(new Error("Could not confirm message authenticity"));
       return;
     }
 
@@ -51,6 +64,7 @@ export class Giveaway extends GenericErrorHandler {
       .find((reaction) => reaction.emoji.name === this.config.emoji);
 
     if (!reaction) {
+      await this.Throw(new Error("Could not find reaction"));
       return;
     }
 
@@ -59,12 +73,23 @@ export class Giveaway extends GenericErrorHandler {
 
     try {
       await winner.send("Winner");
+      return winner;
     } catch (e) {
-      return;
+      await this.Throw(e);
     }
   }
 
+  /**
+   * Boolean representing if the giveaway has ended
+   */
   get ended() {
     return this.config.ends.isAfter(moment());
+  }
+
+  /**
+   * The time until (or passed) since the giveaway was created
+   */
+  get fromNow() {
+    return this.config.ends.fromNow();
   }
 }
