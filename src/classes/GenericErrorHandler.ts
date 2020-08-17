@@ -2,7 +2,7 @@ import { Client, MessageEmbed } from "discord.js";
 import { color } from "../util/config";
 
 export class GenericErrorHandler {
-  constructor(private readonly client: Client) {}
+  constructor(protected readonly client: Client) {}
 
   private static withEmbed(e: Error): MessageEmbed {
     return new MessageEmbed()
