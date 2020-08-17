@@ -11,22 +11,36 @@ class CustomMessage extends Message {
   }
 }
 
+const memberToBeAdmin = (member: GuildMember) => {
+  return (
+    member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
+    member.roles.cache
+      .array()
+      .some((role) => role.name.toLowerCase() === "giveaways")
+  );
+};
+
+const commandMap: {
+  [key: string]: (message: CustomMessage, args: string[]) => unknown;
+} = {
+  roll: (message: CustomMessage, args: string[]) => {
+    message.requires(memberToBeAdmin);
+    roll(message, message.client);
+  },
+  create: (message: CustomMessage, args: string[]) => {
+    message.requires(memberToBeAdmin);
+  },
+} as const;
+
+const commands = Object.keys(commandMap);
+
 const messageHandler = async (
   message: CustomMessage,
   command: string,
   args: string[]
 ) => {
-  switch (command) {
-    case "rolls":
-      message.requires(
-        (user) =>
-          user.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
-          user.roles.cache
-            .array()
-            .some((role) => role.name.toLowerCase() === "giveaways")
-      );
-
-      roll(message, message.client);
+  if (commands.includes(command)) {
+    commandMap[command](message, args);
   }
 };
 
