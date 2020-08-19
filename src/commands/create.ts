@@ -1,13 +1,14 @@
 import { Message } from "discord.js";
-import { GiveawayConstructorOptions } from "../classes/Giveaway";
+import { Giveaway, GiveawayConstructorOptions } from "../classes/Giveaway";
 import { GenericErrorHandler } from "../classes/GenericErrorHandler";
 import { emoji } from "../util/config";
 import moment from "moment";
+import { JsonFS } from "../classes/JsonFS";
 
 export const create = async (message: Message, args: string[]) => {
-  const awaitFirst = async <T = null | string | Message>(
+  const awaitFirst = async (
     fullResponse: boolean = false
-  ): Promise<T | null | Message | string> => {
+  ): Promise<string | Message | null> => {
     const result = await message.channel
       .awaitMessages((m) => m.author.id == message.author.id, {
         max: 1,
@@ -42,7 +43,7 @@ export const create = async (message: Message, args: string[]) => {
   };
 
   await message.channel.send("What is the prize?");
-  const prize = await awaitFirst();
+  const prize = (await awaitFirst()) as string;
   await assert(prize);
 
   await message.channel.send("How long should this giveaway last?");
@@ -52,15 +53,14 @@ export const create = async (message: Message, args: string[]) => {
   const endsAt = moment(_endsAt);
 
   await message.channel.send("How many winners should there be?");
-  const winnerCount = (await awaitFirst()) as string;
+  const _winnerCount = (await awaitFirst()) as string;
+  const winnerCount = parseInt(_winnerCount, 10);
 
   await message.channel.send("Where will this giveaway take place?");
   const _channel = (await awaitFirst(true)) as Message;
 
   const channel = _channel.mentions.channels.first();
   if (!channel) return message.reply("Could not find that channel.");
-
-  const m = await channel.send("Test");
 
   const config: GiveawayConstructorOptions = {
     winnerCount,
@@ -70,7 +70,9 @@ export const create = async (message: Message, args: string[]) => {
     hosted: message.author.id,
     message: {
       channel: channel.id,
-      id: m.id,
+      id: (await channel.send("Test")).id,
     },
   } as const;
+
+  JsonFS.push(new Giveaway(config, message.client).object());
 };

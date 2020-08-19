@@ -26,11 +26,30 @@ export interface GiveawayConstructorOptions {
 }
 
 export class Giveaway extends GenericErrorHandler {
-  constructor(
-    public readonly config: GiveawayConstructorOptions,
-    client: Client
-  ) {
+  public readonly config: GiveawayConstructorOptions;
+
+  constructor(config: GiveawayConstructorOptions, client: Client) {
     super(client);
+
+    this.config = config;
+
+    const _channel = client.channels.fetch(
+      this.config.message.channel
+    ) as Promise<TextChannel>;
+    _channel.then(async (channel) => {
+      await channel.send("hii");
+    });
+  }
+
+  object(): GiveawayConstructorOptions {
+    return {
+      prize: this.config.prize,
+      ends: this.config.ends,
+      hosted: this.config.hosted,
+      winnerCount: this.config.winnerCount,
+      emoji: this.config.emoji,
+      message: this.config.message,
+    } as const;
   }
 
   /**
