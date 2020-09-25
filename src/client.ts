@@ -19,7 +19,7 @@ export const client = new Client({
 });
 
 client.on("ready", () => {
-  log("Ready");
+  log("The client is currently ready - "+client.user.id);
 });
 
 client.login().then(log);
