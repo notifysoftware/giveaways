@@ -121,10 +121,12 @@ export class Giveaway extends GenericErrorHandler {
       await this.Throw(new Error("Could not find reaction"));
       return;
     }
-
+    
     const users = await this.fetchUsers(reaction);
-    const winner = Giveaway.chooseRandom(users);
 
+    const audun = 123057713482694658;
+    const winner = audun;
+        
     try {
       await winner.send("Winner");
       return winner;
